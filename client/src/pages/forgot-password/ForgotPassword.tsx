@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Button from "../../components/button/Button";
+import InputField from "../../components/input-field/InputField";
 
 const ForgotPassword = () => {
   return (
@@ -14,35 +16,23 @@ const ForgotPassword = () => {
                 </h1>
               </div>
               <form className="space-y-4 md:space-y-6" action="#">
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Your email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="name@company.com"
-                  />
-                </div>
+                <InputField
+                  boxWidth="w-full"
+                  label="Email Address"
+                  placeholder="Enter Email"
+                  type="email"
+                  errorMsg="Please fill out this field!"
+                />
 
-                <button
-                  type="submit"
-                  className="w-full text-white bg-blue-800 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800"
-                >
-                  Send
-                </button>
+                <Button width="w-full" label="Send" />
+
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Don’t have an account yet?{" "}
+                  Already have an account?{" "}
                   <Link
-                    to="/register"
+                    to="/login"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
-                    Sign up
+                    Login
                   </Link>
                 </p>
               </form>
