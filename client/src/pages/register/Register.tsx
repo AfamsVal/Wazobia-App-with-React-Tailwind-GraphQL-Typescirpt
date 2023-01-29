@@ -1,9 +1,28 @@
-import React from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
 import Button from "../../components/button/Button";
 import InputField from "../../components/input-field/InputField";
+import { useForm } from "react-hook-form";
+import { IRegister } from "../../utils/types";
+import { registerSchema } from "../../validation/authSchema";
+import ErrorBoundary from "../../components/error-boundary/ErrorBoundary";
 
 const Register = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    // initialValues: initialValues,
+    resolver: yupResolver(registerSchema),
+  });
+
+  const onSubmit = () => {
+    console.log("good");
+    // console.log("good");
+  };
+
   return (
     <div>
       <section className="bg-gray-50 dark:bg-gray-900">
@@ -22,19 +41,32 @@ const Register = () => {
                 </div>
               </div>
               {/* <form className="space-y-4 md:space-y-6" action="#"> */}
-              <form className="w-full max-w-lg">
+              <form
+                className="w-full max-w-lg"
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <div className="flex flex-wrap -mx-3 mb-6">
-                  <InputField
+                  {/* <InputField
                     boxWidth="w-full md:w-1/2 px-3"
                     label="First Name"
+                    name="firstName"
                     placeholder="Enter First Name"
                     type="text"
+                    ref={register}
                     errorMsg="Please fill out this field!"
-                  />
+                  /> */}
+                  {/* <input
+                    className="appearance-none block w-full bg-gray-50 text-gray-900 border border-gray-3 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-600"
+                    name="firstName"
+                    placeholder="Enter First Name"
+                    type="text"
+                    ref={register}
+                  /> */}
 
                   <InputField
                     boxWidth="w-full md:w-1/2 px-3"
                     label="Last Name"
+                    name="lastName"
                     placeholder="Enter Last Name"
                     type="text"
                     errorMsg="Please fill out this field!"
@@ -44,16 +76,26 @@ const Register = () => {
                   <InputField
                     boxWidth="w-full px-3"
                     label="Email Address"
+                    name="email"
                     placeholder="Enter Email"
                     type="email"
                     errorMsg="Email is required!"
                   />
                   <InputField
-                    boxWidth="w-full px-3"
+                    boxWidth="w-full md:w-1/2 px-3 my-6"
+                    name="password"
                     label="Password"
                     placeholder="Enter Password"
                     type="password"
                     errorMsg="Password is required!"
+                  />
+                  <InputField
+                    boxWidth="w-full md:w-1/2 px-3 my-6"
+                    name="confirmPassword"
+                    label="Confirm Password"
+                    placeholder="Enter Confirm Password"
+                    type="password"
+                    errorMsg="Confirm password is required!"
                   />
 
                   <div className="w-full px-3">

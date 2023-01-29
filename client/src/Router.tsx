@@ -1,20 +1,25 @@
 import Login from "./pages/login/Login";
+import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import NotFound from "./pages/not-found/NotFound";
-import Register from "./pages/register/Register";
-import ForgotPassword from "./pages/forgot-password/ForgotPassword";
-import Dashboard from "./pages/dashboard/Dashboard";
+const NotFound = lazy(() => import("./pages/not-found/NotFound"));
+const ForgotPassword = lazy(
+  () => import("./pages/forgot-password/ForgotPassword")
+);
+const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
+const Register = lazy(() => import("./pages/register/Register"));
 
 function App() {
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Suspense fallback="Loading...">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 }

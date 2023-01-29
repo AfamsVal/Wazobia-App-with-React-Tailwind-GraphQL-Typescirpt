@@ -1,10 +1,41 @@
 import React, { useState } from "react";
+import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import Button from "../../components/button/Button";
 import InputField from "../../components/input-field/InputField";
+import { ILogin } from "../../utils/types";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const validate = (values: ILogin) => {
+    const errors: ILogin = {};
+
+    if (!values.email) {
+      errors.email = "Email is Required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = "Invalid email address";
+    }
+
+    if (!values.password) {
+      errors.password = "Password is Required";
+    } else if (values.password.length > 15) {
+      errors.password = "Max of 15 characters is required";
+    }
+    return errors;
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validate,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
     <div>
@@ -17,21 +48,35 @@ const Login = () => {
                   Log In
                 </h1>
               </div>
-              <form className="space-y-4" action="#">
+              <form className="space-y-4" onSubmit={formik.handleSubmit}>
                 <InputField
                   boxWidth="w-full"
+                  name="email"
                   label="Email Address"
                   placeholder="Enter Email"
                   type="email"
-                  errorMsg="Please fill out this field!"
+                  onChange={formik.handleChange}
+                  value={formik.values.email}
+                  errorMsg={
+                    formik.touched.email && formik.errors.email
+                      ? formik.errors.email
+                      : ""
+                  }
                 />
 
                 <InputField
                   boxWidth="relative"
                   label="Password"
+                  name="password"
                   placeholder="Enter Password"
                   type={showPassword ? "text" : "password"}
-                  errorMsg="Please fill out this field!"
+                  onChange={formik.handleChange}
+                  value={formik.values.password}
+                  errorMsg={
+                    formik.touched.password && formik.errors.password
+                      ? formik.errors.password
+                      : ""
+                  }
                 >
                   <i
                     onClick={() => setShowPassword(!showPassword)}
@@ -65,7 +110,7 @@ const Login = () => {
                   </Link>
                 </div>
 
-                <Button width="w-full" label="Login In" />
+                <Button width="w-full" label="Log In" />
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don’t have an account yet?{" "}
                   <Link

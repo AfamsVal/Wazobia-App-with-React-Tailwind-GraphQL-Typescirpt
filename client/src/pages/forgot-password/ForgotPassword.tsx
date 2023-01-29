@@ -18,6 +18,7 @@ const ForgotPassword = () => {
               <form className="space-y-4 md:space-y-6" action="#">
                 <InputField
                   boxWidth="w-full"
+                  name="email"
                   label="Email Address"
                   placeholder="Enter Email"
                   type="email"
