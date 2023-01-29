@@ -1,9 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "../../components/button/Button";
 import InputField from "../../components/input-field/InputField";
 
+type Inputs = {
+  email: string;
+};
+
 const ForgotPassword = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = (result) => {
+    console.log("result:", result);
+  };
+
   return (
     <div>
       <section className="bg-gray-50 dark:bg-gray-900">
@@ -15,15 +31,35 @@ const ForgotPassword = () => {
                   Forgot Password
                 </h1>
               </div>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form
+                className="space-y-4 md:space-y-6"
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <InputField
                   boxWidth="w-full"
-                  name="email"
+                  {...register("email", { required: true })}
                   label="Email Address"
                   placeholder="Enter Email"
                   type="email"
-                  errorMsg="Please fill out this field!"
+                  errorMsg={errors.email ? "This field is required" : ""}
                 />
+                {/* <InputField
+                  boxWidth="w-full"
+                  {...register("lastName", {
+                    required: true,
+                    pattern: /^[A-Za-z]+$/i,
+                  })}
+                  label="Email Address"
+                  placeholder="Enter Email"
+                  type="email"
+                  errorMsg={errors.email ? "This field is required" : ""}
+                />
+
+              
+                <input
+                  type="number"
+                  {...register("age", { min: 18, max: 99 })}
+                /> */}
 
                 <Button width="w-full" label="Send" />
 
