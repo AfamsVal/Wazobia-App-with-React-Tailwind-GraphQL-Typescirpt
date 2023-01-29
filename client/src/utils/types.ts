@@ -7,6 +7,7 @@ export interface IInputField {
   errorMsg: string;
   value?: any;
   onChange?: React.ChangeEvent<HTMLInputElement> | any;
+  onBlur?: React.FocusEvent<any, Element> | any;
   children?: React.ReactNode;
 }
 

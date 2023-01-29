@@ -5,6 +5,7 @@ const NotFound = lazy(() => import("./pages/not-found/NotFound"));
 const ForgotPassword = lazy(
   () => import("./pages/forgot-password/ForgotPassword")
 );
+const RegWithFormik = lazy(() => import("./pages/register/RegWithFormik"));
 const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 const Register = lazy(() => import("./pages/register/Register"));
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/register2" element={<RegWithFormik />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
