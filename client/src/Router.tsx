@@ -13,6 +13,7 @@ const About = lazy(() => import("./pages/about/About"));
 const News = lazy(() => import("./pages/news/News"));
 const Faq = lazy(() => import("./pages/faq/Faq"));
 const ContactUs = lazy(() => import("./pages/contact-us/ContactUs"));
+const MoreDetails = lazy(() => import("./pages/more-detials/MoreDetails"));
 
 function App() {
   return (
@@ -20,10 +21,11 @@ function App() {
       <Suspense fallback="Loading...">
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/about" element={<About />} />
+            <Route index element={<Dashboard />} />
+            <Route path="about" element={<About />} />
             <Route path="/news" element={<News />} />
             <Route path="/faq" element={<Faq />} />
+            <Route path="/details/:id" element={<MoreDetails />} />
             <Route path="/contact-us" element={<ContactUs />} />
           </Route>
           <Route path="/login" element={<Login />} />
