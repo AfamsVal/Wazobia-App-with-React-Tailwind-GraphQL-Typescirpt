@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
 
 const About = () => {
+  const componentRef = useRef(null);
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Val Simple Print",
+    onAfterPrint: () => console.log("printed successfully!"),
+  });
+
   return (
     <div className="my-24">
       <section className="bg-white dark:bg-gray-900">
@@ -9,8 +18,16 @@ const About = () => {
           <h1 className="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">
             From the blog
           </h1>
+          <div className="my-3">
+            <button className="btn btn-info" onClick={handlePrint}>
+              Print this out!
+            </button>
+          </div>
 
-          <div className="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
+          <div
+            className="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2"
+            ref={componentRef}
+          >
             <div className="lg:flex">
               <img
                 className="object-cover w-full h-56 rounded-lg lg:w-64"

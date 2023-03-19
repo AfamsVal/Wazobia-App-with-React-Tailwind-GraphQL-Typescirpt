@@ -10,3 +10,9 @@
     @apply bg-gray-50 border border-gray-300;
   } */
 }
+
+@media print {
+  img {
+    display: none;
+  }
+}
